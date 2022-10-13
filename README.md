@@ -1,6 +1,6 @@
 # Maya Brees' SQL Portfolio
 
-Welcome to my SQL portfolio! These are some SQL projects I have written. Feel free to look at my work and don't hesitate to reahc out with any questions.
+Welcome to my SQL portfolio! These are some SQL projects I have written. Feel free to look at my work and don't hesitate to reach out with any questions.
 
 Contact Info:
 
