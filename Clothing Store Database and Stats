@@ -1,0 +1,25 @@
+1. Create a Store
+/** Store:
+Shirts (20)
+Shorts (15)
+Pants (15)
+Hats (10)
+Shoes (20)
+**/
+
+2. Creat the Table for Store Items
+CREATE TABLE store (id INTEGER PRIMARY KEY, name TEXT, quantity INTEGER, price INTEGER, sold INTEGER);
+INSERT INTO store VALUES (1, "Shirts", 20, 10, 10);
+INSERT INTO store VALUES (2, "Shorts", 15, 20, 7);
+INSERT INTO store VALUES (3, "Pants", 15, 20, 5);
+INSERT INTO store VALUES (4, "Hats", 10, 15, 4);
+INSERT INTO store VALUES (5, "Shoes", 20, 30, 5);
+
+3. Display Database- Ordered by Price
+SELECT * FROM store
+ORDER BY price asc;
+
+4. Display Items Where the Price is $15 or Higher- Asc. Order
+SELECT * FROM store
+WHERE price >= 15
+ORDER BY price asc;
