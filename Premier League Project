@@ -1,0 +1,82 @@
+Sources Used for This Projet:
+https://www.ea.com/games/fifa/fifa-23/ratings
+https://one-versus-one.com/
+
+1. Created Table Called "PL_Players"
+CREATE TABLE PL_Players (id INTEGER PRIMARY KEY, name TEXT, age INTEGER, team TEXT, nationality TEXT, continent TEXT);
+INSERT INTO PL_Players VALUES (1, "Mo Salah", 30, "Liverpool", "Egypt", "Africa");
+INSERT INTO PL_Players VALUES (2, "Erling Haaland", 22, "Manchester City", "Norway", "Europe");
+INSERT INTO PL_Players VALUES (3, "Virgil van Dijk", 31, "Liverpool", "Netherlands", "Europe");
+INSERT INTO PL_Players VALUES (4, "Gabriel Jesus", 25, "Arsenal", "Brazil", "South America");
+INSERT INTO PL_Players VALUES (5, "Kevin de Bruyne", 31, "Manchester City", "Belgium", "Europe");
+INSERT INTO PL_Players VALUES (6, "Cristiano Ronaldo", 37, "Manchester United", "Portugal", "Europe");
+INSERT INTO PL_Players VALUES (7, "Harry Kane", 29, "Tottenham Hotspur", "England", "Europe");
+INSERT INTO PL_Players VALUES (8, "Son Heung-Min", 30, "Tottenham Hotspur", "South Korea", "Asia");
+INSERT INTO PL_Players VALUES (9, "Martin Ødegaard", 23, "Arsenal", "Norway", "Europe");
+INSERT INTO PL_Players VALUES (10, "Bruno Fernandes", 28, "Manchester United", "Portugal", "Europe");
+
+2. Created Table called 'Player_Stats"
+CREATE TABLE Player_Stats (id INTEGER PRIMARY KEY, player_name TEXT, position TEXT, overall_rating INTEGER, pace INTEGER, shooting INTEGER, passing INTEGER, dribbling INTEGER, defending INTEGER, physicality INTEGER, goals_this_season INTEGER);
+INSERT INTO Player_Stats VALUES (1, "Mo Salah", "Forward", 90, 90, 89, 82, 90, 45, 75, 3);
+INSERT INTO Player_Stats VALUES (2, "Erling Haaland", "Forward", 88, 89, 91, 65, 80, 49, 87, 17);
+INSERT INTO Player_Stats VALUES (3, "Virgil van Dijk", "Defense", 90, 81, 60, 71, 72, 91, 86, 1);
+INSERT INTO Player_Stats VALUES (4, "Gabriel Jesus", "Forward", 83, 84, 82, 74, 86, 40, 74, 5);
+INSERT INTO Player_Stats VALUES (5, "Kevin de Bruyne", "Midfield", 91, 74, 88, 97, 87, 64, 77, 2);
+INSERT INTO Player_Stats VALUES (6, "Cristiano Ronaldo", "Forward", 90, 81, 92, 78, 85, 34, 75, 1);
+INSERT INTO Player_Stats VALUES (7, "Harry Kane", "Forward", 89, 68, 91, 83, 82, 47, 82, 10);
+INSERT INTO Player_Stats VALUES (8, "Son Heung-Min", "Forward", 89, 88, 89, 82,86, 42, 69, 3);
+INSERT INTO Player_Stats VALUES (9, "Martin Ødegaard", "Midfield", 84, 76, 75, 86, 84, 58, 63, 3);
+INSERT INTO Player_Stats VALUES (10, "Bruno Fernandes", "Midfield", 86, 72, 86, 88, 81, 67, 76, 2);
+
+3. Created Table Called "Club_Players"
+CREATE TABLE Club_Players (id Integer PRIMARY KEY, name TEXT, person_id1 INTEGER, person_id2 INTEGER);
+INSERT INTO Club_Players VALUES (1, "Mo Salah", 1, 3);
+INSERT INTO Club_Players VALUES (2, "Erling Haaland", 2, 5);
+INSERT INTO Club_PLayers VALUES (3, "Virgil van Dijk", 3, 1);
+INSERT INTO Club_Players VALUES (4, "Gabriel Jesus", 4, 9);
+INSERT INTO Club_Players VALUES (5, "Kevin de Bruyne", 5, 2);
+INSERT INTO Club_Players VALUES (6, "Cristiano Ronaldo", 6, 10);
+INSERT INTO Club_Players VALUES (7, "Harry Kane", 7, 8);
+INSERT INTO Club_Players VALUES (8, "Son Heung-Min", 8, 7);
+INSERT INTO Club_Players VALUES (9, "Martin Ødegaard", 9, 4);
+INSERT INTO Club_Players VALUES (10, "Bruno Fernandes", 10, 6);
+
+4. Simple selection of players from the table "PL_Players" that are 25 years or older, with data presented in ascending order.
+SELECT * FROM PL_Players
+WHERE age >= 25
+ORDER BY team asc;
+
+5. Identified the average goals accumulated this season by position.
+SELECT position, AVG(goals_this_season) AS avg_goals_by_position
+FROM Player_Stats
+GROUP BY position;
+
+6. Identified the total goals accumulated this season by position and labeled the column as "total_goals_by-position".
+SELECT position, overall_rating, SUM(goals_this_season) AS total_goals_by_position
+FROM Player_Stats
+GROUP BY position;
+
+7. Used a JOIN to combine the tables "PL_Players" and "Player_Stats" and used the ON function to match the columns "name" and "player_name'.
+SELECT PL_Players.name, PL_Players.team, Player_Stats.position, Player_Stats.overall_rating
+FROM PL_Players
+JOIN Player_Stats
+ON PL_Players.name = Player_Stats.player_name;
+
+8. Used a LEFT OUTER JOIN to combine the tables "PL_Players" and "Player_Stats". 
+SELECT PL_Players.name, PL_Players.team, Player_Stats.position, Player_Stats.overall_rating
+FROM PL_Players
+LEFT OUTER JOIN Player_Stats
+ON PL_Players.name = Player_Stats.player_name;
+
+9. Used a JOIN to match the players' id with their teammate's id.
+SELECT Club_Players.name, Club_Players.person_id1, teammate.person_id2 AS players_teammate
+FROM Club_Players
+JOIN Club_Players teammate
+ON Club_Players.id = teammate.person_id1;
+
+10. Used a JOIN to match the players' id with their teammate's id. This results in the user seeing the names of the player and their respective teammate. 
+SELECT a.name, b.name FROM Club_Players
+JOIN PL_Players a
+ON Club_Players.person_id1 = a.id
+JOIN PL_Players b
+ON Club_Players.person_id2 = b.id;
