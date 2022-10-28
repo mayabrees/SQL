@@ -4,7 +4,7 @@ Welcome to my SQL portfolio! These are some SQL projects I have written. Feel fr
 
 Contact Info:
 
-Email: mbrees3@knights.ucf.edu
+Email: mayabrees@outlook.com
 
 Phone: (321)-607-1636
 
