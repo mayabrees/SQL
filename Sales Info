@@ -1,0 +1,40 @@
+For this SQL, I queried a database with multiple tables to analyze data about the customers, sales, and orders.
+
+/**How many sales were placed in January?**/
+SELECT COUNT (orderID) 
+FROM BIT_DB.JanSales;
+
+/**How many of those orders were from an iPhone?**/
+SELECT COUNT (orderID)
+FROM BIT_DB.JanSales
+WHERE Product = 'iPhone';
+
+/**Select customer account numbers for all orders that were placed in Febuary**/
+SELECT acctnum
+FROM BIT_DB.customers cust
+INNER JOIN BIT_DB.FebSales Feb
+ON cust.order_id = Feb.orderID;
+
+/**Which product was the cheapest one sold in January, what was the price?**/
+SELECT product, MIN(price)
+FROM BIT_DB.JanSales
+GROUP BY product, price
+ORDER BY asc;
+
+/**What is the total revenue for each product sold in January? (Revenue can be calculated using the number of products sold and the price of the products).**/
+SELECT product, SUM(quantity)*price AS revenue
+FROM BIT_DB.JanSales
+GROUP BY product;
+
+/**Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?**/
+SELECT product, SUM(quantity) AS total_items_sold, SUM(quantity)*price AS revenue
+FROM BIT_DB.FebSales
+WHERE location = '548 Lincoln St, Seattle, WA 98101'
+GROUP BY product;
+
+/**How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?**/
+SELECT COUNT (cust.acctnum), AVG(quantity*price)
+FROM BIT_DB.FebSales Feb
+LEFT JOIN BIT_DB.customers cust
+ON Feb.orderID = cust.order_id
+WHERE Feb.quantity > 2;
