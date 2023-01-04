@@ -1,0 +1,60 @@
+/**I first created a table for my spotify data and added it to the database: BIT_DB**/
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+song_key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+song_mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness text NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL )
+
+/**I then took 3 of the columns from the data and organized it by the artist**/
+SELECT artist_name, track_name, popularity
+FROM BIT_DB.Spotifydata
+GROUP BY artist_name;
+
+/**Next, I wanted to find out which tracks had "danceability" greater than or equal to .5 and organized the results in ascending order**/
+SELECT track_name, danceability
+FROM BIT_DB.Spotifydata
+WHERE danceability >= .5
+ORDER BY danceability asc;
+
+/**I then wnated to know which artist had a song with popularity and energy less than the rating of 80 and .5 respectivley**/
+SELECT artist_name, track_name, popularity, danceability, energy
+FROM BIT_DB.Spotifydata
+WHERE popularity <= 80
+AND energy <= .5
+GROUP BY artist_name;
+
+/**I wanted to see the artists with tracks having a duration between 150000 and 230000 ms**/
+SELECT artist_name, track_name, duration_ms
+FROM BIT_DB.Spotifydata
+WHERE duration_ms BETWEEN '150000' AND '230000'
+ORDER by artist_name asc; 
+
+/**I searched for an artist with the word "Olivia" in it**/ 
+SELECT artist_name, track_name, popularity
+FROM BIT_DB.Spotifydata
+WHERE artist_name LIKE '%Olivia%';
+
+/**I wanted to see the average number for the popularity, danceability, and energy of each artist respective song**/
+SELECT artist_name, track_name, AVG(popularity), AVG(danceability), AVG(energy)
+FROM BIT_DB.Spotifydata
+GROUP BY artist_name, track_name; 
+
+/**Last, I searched for the top 10 songs based on popularity**/ 
+SELECT artist_name, track_name, popularity
+FROM BIT_DB.Spotifydata
+ORDER BY popularity desc
+LIMIT 10;
