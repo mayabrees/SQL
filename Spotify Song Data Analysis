@@ -53,8 +53,17 @@ SELECT artist_name, track_name, AVG(popularity), AVG(danceability), AVG(energy)
 FROM BIT_DB.Spotifydata
 GROUP BY artist_name, track_name; 
 
-/**Last, I searched for the top 10 songs based on popularity**/ 
+/**I searched for the top 10 songs based on popularity**/ 
 SELECT artist_name, track_name, popularity
 FROM BIT_DB.Spotifydata
 ORDER BY popularity desc
 LIMIT 10;
+
+/**Lastly, I found the average popularity for the artists and then for artist with popularity above 90**/
+WITH AVGPopCTE AS
+(SELECT s.artist_name, AVG(s.popularity) AS AVG_Pop
+FROM Spotifydata s
+GROUP BY s.artist_name)
+SELECT artist_name, AVG_Pop, 'Top Star' AS tag
+FROM AVGPopCTE
+WHERE AVG_Pop >= 90;
