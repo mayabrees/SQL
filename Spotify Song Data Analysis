@@ -30,7 +30,7 @@ FROM BIT_DB.Spotifydata
 WHERE danceability >= .5
 ORDER BY danceability asc;
 
-/**I then wnated to know which artist had a song with popularity and energy less than the rating of 80 and .5 respectivley**/
+/**I then wanted to know which artist had a song with popularity and energy less than the rating of 80 and .5 respectivley**/
 SELECT artist_name, track_name, popularity, danceability, energy
 FROM BIT_DB.Spotifydata
 WHERE popularity <= 80
